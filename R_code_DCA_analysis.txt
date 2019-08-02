@@ -1,0 +1,96 @@
+####################R code to perform Detrended Correspondence Analysis#############
+####################################################################################
+
+Developed by Hans ter Steege and modified by Juan E. Guevara
+August 2019
+
+
+
+##############################################################
+setwd("c:/Users/User/Desktop/Analisis 2013")
+vegtab1 <- read.table ("c:/Users/Gaby/Desktop/Analisis 2013/vegdat2013.txt", header=T)
+
+vegtable1=matrify(vegtab1)
+
+
+
+
+
+#####################Detrended Correspondence Analysis########
+##############################################################
+
+
+vegtab.deco = decorana(vegtable1, iweigh=0, iresc=4, ira=0, mk=26, short=0, before=NULL, after=NULL)
+
+
+#######################decorana Amazplots#####################
+##function to create DCA plots weighted by species abundances##
+
+plotspecies = function(species){
+  plot(vegtab.deco, choices=c(1,2), origin=TRUE,
+       display=c("sites"), cex = 0.5, cols = c(1,2),
+       main = species)
+  
+  lset   = eval(parse(text=paste("vegtable1$",species, sep = "")))
+  lmin   = min(lset)
+  lmax   = max(lset)
+  lrange = lmax - lmin
+  lcol   = round((5*(lset - lmin)/lrange),1)
+  
+  points(vegtab.deco, display = "sites", cex = lcol, pch = 21, 
+         col = "red", bg = "red")
+  species
+}
+#################################################
+
+plot sites
+
+plotsites = function(scores){
+  plot(vegtab.deco, choices=c(1,2), origin=TRUE,
+       display=c("Site scores"), cex = 0.5, cols = c(1,2),
+       main = sites)
+  
+  lset   = eval(parse(text=paste("vegtable1$",N, sep = "")))
+  lmin   = min(lset)
+  lmax   = max(lset)
+  lrange = lmax - lmin
+  lcol   = round((5*(lset - lmin)/lrange),1)
+  
+  points(vegtab.deco, display = "sites", cex = lcol, pch = 21, 
+         col = "red", bg = "red")
+  species
+}
+
+
+################################################
+
+plot(vegtab.deco, choices=c(1,2), origin=TRUE, display=c("sites"),cex=0.7, cols=c(1,2), col="purple")
+plot(vegtab1.deco, choices=c(1,2), origin=TRUE, display=c("both"),cex=0.6, cols=c(1,2))
+
+text(vegtab.deco, display="spec", cex=0.6, col="blue")
+text(vegtab.deco, display="sites", cex=0.5, col="red")
+
+####################Examples####################
+
+plotspecies("Iryanthera crassifolia")
+plotspecies("Huberodendronswietenioides")
+plotspecies("Iriarteadeltoidea")
+plotspecies("Carinianamultiflora")
+plotspecies("Iryantherajuruensis")
+plotspecies("Iryantheralancifolia")
+plotspecies("Iryantherahostmannii")
+plotspecies("Micrandraspruceana")
+plotspecies("Vantaneaperuviana")
+plotspecies("Vantaneaparviflora")
+plotspecies("Tetragastrispanamensis")
+plotspecies("Pouroumabicolor")
+plotspecies("Sacoglottisguianensis")
+plotspecies("Oenocarpusbataua")
+plotspecies("Oxandraeuneura")
+plotspecies("Tovomitacalophyllophylla")
+plotspecies("Parkianitida")
+plotspecies("Pachirasp_arenablanca_nitida")
+plotspecies("Virolapavonis")
+plotspecies("Eschweileracoriacea")
+plotspecies("Ingaumbellifera")
+plotspecies("Ingacordatoalata")
